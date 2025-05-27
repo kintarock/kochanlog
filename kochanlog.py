@@ -1,6 +1,9 @@
 
 import streamlit as st
 import gspread
+import json
+import os
+from google.oauth2.service_account import Credentials
 
 from datetime import datetime, timedelta
 
@@ -17,7 +20,9 @@ except locale.Error:
         st.warning("⚠ 日本語ロケールが見つかりません。曜日が正しく表示されない場合があります。")
 
 # スプレッドシート認証
-gc = gspread.service_account(filename = "credentials.json")
+creds_dict = json.loads(st.secrets["credentials"])
+creds = Credentials.from_service_account_info(creds_dict)
+gc = gspread.authorize(creds)
 
 # スプレッドシートとシート名を指定
 spreadsheet = gc.open("こっログ記録")

@@ -17,11 +17,15 @@ except locale.Error:
         # Windowsで一般的なロケール名
         locale.setlocale(locale.LC_TIME, 'japanese')
     except locale.Error:
-        st.warning("⚠ 日本語ロケールが見つかりません。曜日が正しく表示されない場合があります。")
-
+        try:
+            locale.setlocale(locale.LC_TIME, '')  # デフォルトロケールにフォールバック
+        except locale.Error:
+            st.warning("⚠ 日本語ロケールが見つかりません。曜日が正しく表示されない場合があります。")
+    
 # スプレッドシート認証
-creds_dict = json.loads(st.secrets["credentials"])
-creds = Credentials.from_service_account_info(creds_dict)
+creds_dict = dict(st.secrets["credentials"])
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+creds = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
 gc = gspread.authorize(creds)
 
 # スプレッドシートとシート名を指定

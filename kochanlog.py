@@ -7,21 +7,7 @@ from google.oauth2.service_account import Credentials
 
 from datetime import datetime, timedelta
 
-import locale
 
-# 日本語ロケールを設定（Windows用）
-try:
-    locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
-except locale.Error:
-    try:
-        # Windowsで一般的なロケール名
-        locale.setlocale(locale.LC_TIME, 'japanese')
-    except locale.Error:
-        try:
-            locale.setlocale(locale.LC_TIME, '')  # デフォルトロケールにフォールバック
-        except locale.Error:
-            st.warning("⚠ 日本語ロケールが見つかりません。曜日が正しく表示されない場合があります。")
-    
 # スプレッドシート認証
 creds_dict = dict(st.secrets["credentials"])
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
@@ -40,12 +26,18 @@ st.write('毎日の離脱症状を記録するアプリです')
 default_date = (datetime.now() - timedelta(days = 1)).date()
 date_to_use = st.date_input("日付", value = default_date)
 
+#　日本語の曜日を定義（ロケールを使わない）
+weekday_name = ["月","火","水","木","金","土","日"]
+weekday_jp = weekday_name[date_to_use.weekday()]
 
-st.write(f"選択した日付：{date_to_use.strftime('%Y年%m月%d日')}")
+# 日付+曜日の表示
+st.write(f"選択した日付：{date_to_use.strftime('%Y年%m月%d日')}({weekday_jp})")
+
 
 # 入力項目フォーム
 with st.form(key = "symptom_form"):
     time_period = st.selectbox("症状の時間帯",["午前","午後","夕方","夜","深夜","なし","その他"])
+    
     if time_period == "なし":
         duration = "0分"
         st.write("症状がないため、長さは「０分」に設定されます。")

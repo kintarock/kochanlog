@@ -36,7 +36,7 @@ st.write(f"選択した日付：{date_to_use.strftime('%Y年%m月%d日')}({weekd
 
 # 入力項目フォーム
 with st.form(key = "symptom_form"):
-    time_period = st.selectbox("症状の時間帯",["午前","午後","夕方","夜","深夜","なし","その他"])
+    time_period = st.selectbox("症状の出始めた時間帯",["午前","午後","夕方","夜","深夜","なし","その他"])
     
     if time_period == "なし":
         duration = "0分"

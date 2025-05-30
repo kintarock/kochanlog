@@ -44,12 +44,12 @@ with st.form(key = "symptom_form"):
         
     else:
         
-        duration_options = [f"{i//2}時間" if i % 2 == 0 else f"{i//2}時間30分" for i in range(1,13)]
+        duration_options = [f"{i//2}時間" if i % 2 == 0 else f"{i//2}時間30分" for i in range(1,17)]
         duration = st.selectbox("症状の長さ", duration_options)
     
-    sleep_score = st.slider("睡眠の評価（1～5,0.5刻み）",1.0,5.0,3.0,0.5,format = "%.1f")
+    sleep_score = st.slider("睡眠の評価（0～5,0.5刻み）",0.0,5.0,3.0,0.5,format = "%.1f")
     
-    memo = st.text_area("備考欄（メモ）", placeholder="気づいたことや体調の変化などを自由に記入", max_chars=100)
+    memo = st.text_area("備考欄（メモ）", placeholder="気づいたことや体調の変化などを自由に記入", max_chars=150)
     
     submitted = st.form_submit_button("記録する")
 

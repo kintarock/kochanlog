@@ -49,17 +49,17 @@ with st.form(key = "symptom_form"):
     
     
 # 5/31追加機能　お薬のチェックボックス
-    st.markdown('### 睡眠の服用状況')
+    st.markdown('### 睡眠薬の服用状況')
 
     belsomra = st.radio(
         "ベルソムラ錠の服用量は？",
-        ("なし", "半錠","１錠"),
+        ("なし", "半錠","１錠","1.3錠"),
         horizontal = True
     )
 
     rivotril = st.radio(
         "リボトリールの服用量は？",
-        ("なし","半錠","１錠"),
+        ("なし","半錠","１錠","1.3錠"),
         horizontal = True
     )
     

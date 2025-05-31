@@ -21,7 +21,7 @@ mode = st.sidebar.selectbox("モードを選んでください", ["記録モー�
 
 if mode == "記録モード":
     # タイトル表示
-    st.title("こっログ")
+    st.title("こっちゃんログ")
     st.write('毎日の離脱症状を記録するアプリです')
 
     # 日付入力(初期値は今日)

@@ -36,7 +36,7 @@ st.write(f"選択した日付：{date_to_use.strftime('%Y年%m月%d日')}({weekd
 
 # 入力項目フォーム
 with st.form(key = "symptom_form"):
-    time_period = st.selectbox("症状の出始めた時間帯",["午前","午後","夕方","夜","深夜","なし","その他"])
+    time_period = st.selectbox("症状の時間帯",["午前","午後","夕方","夜","深夜","なし","その他"])
     
     if time_period == "なし":
         duration = "0分"
@@ -44,16 +44,32 @@ with st.form(key = "symptom_form"):
         
     else:
         
-        duration_options = [f"{i//2}時間" if i % 2 == 0 else f"{i//2}時間30分" for i in range(1,17)]
+        duration_options = [f"{i//2}時間" if i % 2 == 0 else f"{i//2}時間30分" for i in range(1,13)]
         duration = st.selectbox("症状の長さ", duration_options)
     
-    sleep_score = st.slider("睡眠の評価（0～5,0.5刻み）",0.0,5.0,3.0,0.5,format = "%.1f")
     
-    memo = st.text_area("備考欄（メモ）", placeholder="気づいたことや体調の変化などを自由に記入", max_chars=150)
+# 5/31追加機能　お薬のチェックボックス
+    st.markdown('### 睡眠の服用状況')
+
+    belsomra = st.radio(
+        "ベルソムラ錠の服用量は？",
+        ("なし", "半錠","１錠"),
+        horizontal = True
+    )
+
+    rivotril = st.radio(
+        "リボトリールの服用量は？",
+        ("なし","半錠","１錠"),
+        horizontal = True
+    )
+    
+    sleep_score = st.slider("睡眠の評価（1～5,0.5刻み）",1.0,5.0,2.5,0.5,format = "%.1f")
+    
+    memo = st.text_area("備考欄（メモ）", placeholder="気づいたことや体調の変化などを自由に記入", max_chars=100)
     
     submitted = st.form_submit_button("記録する")
 
 if submitted:
-    worksheet.append_row([str(date_to_use), time_period, duration, str(sleep_score), memo])
+    worksheet.append_row([str(date_to_use), time_period, duration,belsomra,rivotril, str(sleep_score), memo])
     
     st.success("✅　スプレッドシートに記録しました！")

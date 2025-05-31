@@ -61,9 +61,9 @@ if mode == "記録モード":
             horizontal=True
         )
 
-        sleep_score = st.slider("睡眠の評価（1～5,0.5刻み）", 1.0, 5.0, 3.0, 0.5, format="%.1f")
+        sleep_score = st.slider("睡眠の評価（1～5,0.5刻み）", 0.0, 5.0, 3.0, 0.5, format="%.1f")
 
-        memo = st.text_area("備考欄（メモ）", placeholder="気づいたことや体調の変化などを自由に記入", max_chars=100)
+        memo = st.text_area("備考欄（メモ）", placeholder="気づいたことや体調の変化などを自由に記入", max_chars=150)
 
         submitted = st.form_submit_button("記録する")
 

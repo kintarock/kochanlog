@@ -25,7 +25,7 @@ if mode == "記録モード":
     st.write('毎日の離脱症状を記録するアプリです')
 
     # 日付入力(初期値は今日)
-    default_date = (datetime.now() - timedelta(days=1)).date()
+    default_date = (datetime.now() - timedelta(days=0)).date()
     date_to_use = st.date_input("日付", value=default_date)
 
     # 日本語の曜日を定義（ロケールを使わない）
@@ -86,11 +86,11 @@ elif mode == "確認モード":
 
             df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
             df["睡眠の評価"] = df["睡眠の評価"].round(1)
-            df["ベルソムラ"] = df["ベルソムラ"].round(1)
-            df["リボトリール"] = df["リボトリール"].round(1)
+            
             df = df.sort_values("date", ascending=False)
 
         # 表示用の列を並べ替えて見やすくする（任意）
+        df["睡眠の評価"] = df["睡眠の評価"].round(1)
         display_df = df.head(7)[["date", "症状がでた時", "症状の長さ","ベルソムラ", "リボトリール", "睡眠の評価","メモ・備考"]]
 
         st.table(display_df)  # ← ここを変更 st.dataframe → st.table

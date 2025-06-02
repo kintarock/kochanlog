@@ -84,7 +84,7 @@ elif mode == "確認モード":
             if "日付" in df.columns:
                 df.rename(columns={"日付": "date"}, inplace=True)
 
-            df["date"] = pd.to_datetime(df["date"])
+            df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
             df = df.sort_values("date", ascending=False)
 
         # 表示用の列を並べ替えて見やすくする（任意）

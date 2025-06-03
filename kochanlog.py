@@ -25,7 +25,7 @@ if mode == "記録モード":
     st.write('毎日の離脱症状を記録するアプリです')
 
     # 日付入力(初期値は今日)
-    default_date = (datetime.now() - timedelta(days=0)).date()
+    default_date = (datetime.now() - timedelta(days=1)).date()
     date_to_use = st.date_input("日付", value=default_date)
 
     # 日本語の曜日を定義（ロケールを使わない）

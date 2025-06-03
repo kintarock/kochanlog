@@ -90,7 +90,7 @@ elif mode == "確認モード":
             df = df.sort_values("date", ascending=False)
 
         # 表示用の列を並べ替えて見やすくする（任意）
-        df["睡眠の評価"] = df["睡眠の評価"].round(1)
+        df["睡眠の評価"] = df["睡眠の評価"].astype(float).round(1)
         display_df = df.head(7)[["date", "症状がでた時", "症状の長さ","ベルソムラ", "リボトリール", "睡眠の評価","メモ・備考"]]
 
         st.table(display_df)  # ← ここを変更 st.dataframe → st.table

@@ -85,7 +85,7 @@ elif mode == "確認モード":
                 df.rename(columns={"日付": "date"}, inplace=True)
 
             df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
-            df["睡眠の評価"] = df["睡眠の評価"].round(1)
+            df["睡眠の評価"] = df["睡眠の評価"].astype(float).round(1)
             
             df = df.sort_values("date", ascending=False)
 
